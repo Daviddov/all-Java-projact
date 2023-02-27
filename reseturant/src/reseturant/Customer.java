@@ -1,18 +1,22 @@
 package reseturant;
 
 public class Customer extends Person{
-	private Dish[] dishs;
+private String name;
+	private boolean customerSeat;
 	
 	public Customer(String name) {
 		super(name);
-		
+		this.name = name;
+		this.setCustomerSeat(false);
+	}
+
+	public boolean isCustomerSeat() {
+		return customerSeat;
+	}
+
+	public void setCustomerSeat(boolean customerSeat) {
+		this.customerSeat = customerSeat;
 	}
 	
-	public Dish[] getDishs() {
-		return dishs;
-	}
-	public void setDishs(Dish[] dishs) {
-		this.dishs = dishs;
-	}
 
 }

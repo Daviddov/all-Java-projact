@@ -3,25 +3,31 @@ package reseturant;
 public class Table {
 
 	private int tableNumber;
-	private Seat[] seats;
-	private int seatNumber = 2;
-	private boolean available;
+	private int seatNumber = 4;
+	private Customer[] seatsCustomers = new Customer[seatNumber]; 
+	public int getSeatNumber() {
+		return seatNumber;
+	}
 
-	public Table(int numOfTable) {
-		setTableNumber(numOfTable);
+	public void setSeatNumber(int seatNumber) {
+		this.seatNumber = seatNumber;
+	}
+
+	public void setReservations(Reservation[] reservations) {
+		this.reservations = reservations;
+	}
+
+	private boolean available;
+	private Reservation[] reservations;
+	private double reservationTotalPrice = 0;
+	
+	public Table(int tableNumber) {
+		setTableNumber(tableNumber);
 		this.available = true;
-		seats = new Seat[seatNumber];
-		for (int i = 0; i < seats.length; i++) {
-			seats[i] = new Seat();
-		}
+		
 	}
 
 	public boolean isAvailable() {
-		for (int i = 0; i < seats.length; i++) {
-			if (!seats[i].isEmptySeat()) {
-				this.available = false;
-			}
-		}
 		return available;
 	}
 
@@ -35,6 +41,29 @@ public class Table {
 
 	public void setTableNumber(int tableNumber) {
 		this.tableNumber = tableNumber;
+	}
+
+	public Reservation[] getReservations() {
+		return reservations;
+	}
+	public void setReservations(Dish[] dishs) {
+		this.reservations = reservations;
+	}
+
+	public double getReservationTotalPrice() {
+		return reservationTotalPrice;
+	}
+
+	public void setReservationTotalPrice(double reservationTotalPrice) {
+		this.reservationTotalPrice = reservationTotalPrice;
+	}
+
+	public Customer[] getSeatsCustomers() {
+		return seatsCustomers;
+	}
+
+	public void setSeatsCustomers(Customer[] seatsCustomers) {
+		this.seatsCustomers = seatsCustomers;
 	}
 
 }

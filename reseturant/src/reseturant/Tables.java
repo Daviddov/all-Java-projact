@@ -2,10 +2,40 @@ package reseturant;
 
 public class Tables {
 	private Table[][] tables;
+
+	public int availableTables() {
+		int availableTables = 0;
+		for (int i = 0; i < tables.length; i++) {
+			for (int j = 0; j < tables[i].length; j++) {
+				Table table = tables[i][j];
+				if (table.isAvailable()) {
+					availableTables++;
+				}
+			}
+		}
+		return availableTables;
+	}
+
+	public Table[][] getTables() {
+		return tables;
+	}
+
+	public void setTables(Table[][] tables) {
+		this.tables = tables;
+	}
+
+	public int getNumOfTables() {
+		return numOfTables;
+	}
+
+	public void setNumOfTables(int numOfTables) {
+		this.numOfTables = numOfTables;
+	}
+
 	private int numOfTables = 0;
 
-	public Tables() {
-		this.tables = new Table[4][4];
+	public Tables(int x, int y) {
+		this.tables = new Table[x][y];
 		for (int i = 0; i < this.tables.length; i++) {
 			for (int j = 0; j < tables[i].length; j++) {
 				this.tables[i][j] = new Table(++numOfTables);
@@ -44,6 +74,7 @@ public class Tables {
 				}
 
 			}
+			System.out.println();
 			System.out.println();
 		}
 	}
