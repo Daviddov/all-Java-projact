@@ -6,23 +6,40 @@ public class Hostess extends Workers {
 		super(salary, name);
 
 	}
-private Table findTable() {
-	for (int i = 0; i < tables.getTables().length; i++) {
-		for (int j = 0; j < tables.getTables()[i].length; j++) {
-			Table table = tables.getTables()[i][j];
+private Table findTableAvailable(Table[] tables) {
+	for (int i = 0; i < tables.length; i++) {
+		
+			Table table = tables[i];
 			if (table.isAvailable()) {
 				return table;
 
 			}
 		}
-	}
+	
+	return null;
 }
 	
-	public void seatCustomers(Customer[] newCustomers, Tables tables) {
-//		int customersSeats = 0;
+	public void seatCustomers(Customer[] newCustomers, Table[] tables) {
+		//(need to build search for smallest table)
+		int availableTables = 0;
+		int alradySeats = 0;
 		
-		if (newCustomers.length >= tables.availableTables()) {
-			findTable();
+		for (int i = 0; i < tables.length; i++) {
+			if (tables[i].isAvailable()) {
+				availableTables++;
+			}
+		}
+		if (newCustomers.length  >= availableTables*4) {
+			while(alradySeats != newCustomers.length) {
+				Table table = findTableAvailable(tables);
+				for (int i = 0; i < table.getSeatsNumber(); i++) {
+					table.getSeatsCustomers()[i] = newCustomers[i + alradySeats++];
+				}
+				table.setAvailable(false);
+				//how to add dish??
+//				table.getWaiter().takeReservation(table);
+			}
+			
 		}
 		
 		

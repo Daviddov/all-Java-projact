@@ -3,27 +3,33 @@ package reseturant;
 public class Table {
 
 	private int tableNumber;
-	private int seatNumber = 4;
-	private Customer[] seatsCustomers = new Customer[seatNumber]; 
-	public int getSeatNumber() {
-		return seatNumber;
-	}
-
-	public void setSeatNumber(int seatNumber) {
-		this.seatNumber = seatNumber;
-	}
-
-	public void setReservations(Reservation[] reservations) {
-		this.reservations = reservations;
-	}
+	private int seatsNumber;
+	private Customer[] seatsCustomers; 
+	private Waiter waiter;
 
 	private boolean available;
-	private Reservation[] reservations;
-	private double reservationTotalPrice = 0;
+	private Reservation reservation;
 	
-	public Table(int tableNumber) {
-		setTableNumber(tableNumber);
+	
+	public Table(int numOfSeats) {
+		
+	}
+	public int getSeatsNumber() {
+		return seatsNumber;
+	}
+	
+	public void setSeatNumber(int seatNumber) {
+		this.seatsNumber = seatNumber;
+	}
+	
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+	
+	public Table(int tableNumber, int numOfSeats) {
 		this.available = true;
+		this.seatsNumber = numOfSeats;
+		this.seatsCustomers = new Customer[seatsNumber]; 
 		
 	}
 
@@ -43,19 +49,12 @@ public class Table {
 		this.tableNumber = tableNumber;
 	}
 
-	public Reservation[] getReservations() {
-		return reservations;
+	public Reservation getReservation() {
+		return reservation;
 	}
+	
 	public void setReservations(Dish[] dishs) {
-		this.reservations = reservations;
-	}
-
-	public double getReservationTotalPrice() {
-		return reservationTotalPrice;
-	}
-
-	public void setReservationTotalPrice(double reservationTotalPrice) {
-		this.reservationTotalPrice = reservationTotalPrice;
+		this.reservation = reservation;
 	}
 
 	public Customer[] getSeatsCustomers() {
@@ -64,6 +63,12 @@ public class Table {
 
 	public void setSeatsCustomers(Customer[] seatsCustomers) {
 		this.seatsCustomers = seatsCustomers;
+	}
+	public Waiter getWaiter() {
+		return waiter;
+	}
+	public void setWaiter(Waiter waiter) {
+		this.waiter = waiter;
 	}
 
 }

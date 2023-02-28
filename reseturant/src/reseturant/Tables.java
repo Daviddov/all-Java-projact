@@ -2,6 +2,12 @@ package reseturant;
 
 public class Tables {
 	private Table[][] tables;
+	private int numOfTables = 0;
+	private final int numOfSeats = 4;
+
+	public int getNumOfSeats() {
+		return numOfSeats;
+	}
 
 	public int availableTables() {
 		int availableTables = 0;
@@ -32,13 +38,11 @@ public class Tables {
 		this.numOfTables = numOfTables;
 	}
 
-	private int numOfTables = 0;
-
 	public Tables(int x, int y) {
 		this.tables = new Table[x][y];
 		for (int i = 0; i < this.tables.length; i++) {
 			for (int j = 0; j < tables[i].length; j++) {
-				this.tables[i][j] = new Table(++numOfTables);
+				this.tables[i][j] = new Table(++numOfTables, numOfSeats);
 			}
 		}
 		drawTable();
