@@ -19,10 +19,11 @@ private Table findTableAvailable(Table[] tables) {
 	return null;
 }
 	
-	public void seatCustomers(Customer[] newCustomers, Table[] tables) {
+	public Customer[] seatCustomers(Customer[] newCustomers, Table[] tables) {
 		//(need to build search for smallest table)
 		int availableTables = 0;
 		int alradySeats = 0;
+		Customer[] seatCustomers = new Customer[newCustomers.length];
 		
 		for (int i = 0; i < tables.length; i++) {
 			if (tables[i].isAvailable()) {
@@ -33,15 +34,17 @@ private Table findTableAvailable(Table[] tables) {
 			while(alradySeats != newCustomers.length) {
 				Table table = findTableAvailable(tables);
 				for (int i = 0; i < table.getSeatsNumber(); i++) {
-					table.getSeatsCustomers()[i] = newCustomers[i + alradySeats++];
+					table.getSeatsCustomers()[i] = newCustomers[i + alradySeats];
+					seatCustomers[i] = newCustomers[i + alradySeats++];
 				}
 				table.setAvailable(false);
-				//how to add dish??
-//				table.getWaiter().takeReservation(table);
+
 			}
 			
+		}else {
+			System.out.println("Sorry no place to seat");
 		}
-		
+		return seatCustomers;
 		
 		
 		

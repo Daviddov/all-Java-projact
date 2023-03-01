@@ -4,6 +4,7 @@ public class Table {
 
 	private int tableNumber;
 	private int seatsNumber;
+	private boolean didReservation = false;
 	private Customer[] seatsCustomers; 
 	private Waiter waiter;
 
@@ -69,6 +70,13 @@ public class Table {
 	}
 	public void setWaiter(Waiter waiter) {
 		this.waiter = waiter;
+	}
+	
+	public boolean isDidReservation() {
+		return didReservation;
+	}
+	public void setDidReservation(boolean didReservation) {
+		this.didReservation = didReservation;
 	}
 
 }

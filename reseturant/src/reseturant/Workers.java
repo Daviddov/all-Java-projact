@@ -1,6 +1,6 @@
 package reseturant;
 
-public class Workers extends Person {
+abstract class Workers extends Person {
 private double salary;
 private boolean available;
 
