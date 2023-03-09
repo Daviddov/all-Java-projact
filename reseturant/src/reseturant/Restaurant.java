@@ -8,7 +8,7 @@ public class Restaurant {
 	private Shift shift;
 	private int workersCount = 0;
 	private Workers[] workers;
-
+	private double restaurantCash = 0;
 	private Table[] tables;
 	private int numOfTables = 0;
 	private Menu menu;
@@ -19,16 +19,30 @@ public class Restaurant {
 		createTable(16, 4);
 		this.workers = new Workers[20];
 
-		waiters();
-		cookers();
+		waiters(7);
+		cookers(7);
+		
 		workers[workersCount++] = new ShiftManager(3000, "Avi");
 		workers[workersCount++] = new Hostess(3000, "Gili");
 
-		this.shift = new Shift("day shift", workers, getShiftManegar(), getHostess(), tables);
+		this.shift = new Shift("day shift", workers, getShiftManegar(), getHostess(), tables ,menu);
 
-		this.setMenu(new Menu());
+		this.menu=  new Menu();
+		addDishToMenu("Pizza", 40, 10);
+		
+		endShift();
+		
 	}
-
+	
+	public void addDishToMenu(String name, int price, int amount) {
+		menu.addDish(new Dish(name, price, amount));
+	}
+	
+public void endShift() {
+	restaurantCash += this.shift.getShiftCash();
+		this.shift = null;
+}
+	
 	public int getNumOfTables() {
 		return numOfTables;
 	}
@@ -59,15 +73,26 @@ public class Restaurant {
 		return null;
 	}
 
-	private void waiters() {
-		for (int i = 0; i < 7; i++) {
+	private void waiters(int num) {
+		for (int i = 0; i < num; i++) {
+			if(workersCount<workers.length) {
 			workers[workersCount++ + i] = new Waiter(2500, "waiters " + i);
+			}else {
+				System.out.println("no place for more workers");
+				return;
+			}
 		}
 	}
 
-	private void cookers() {
-		for (int i = 0; i < 7; i++) {
+
+	private void cookers(int num) {
+		for (int i = 0; i < num; i++) {
+			if(workersCount<workers.length) {
 			workers[workersCount++ + i] = new Cooker(3000, "cooker " + i);
+			}else {
+				System.out.println("no place for more workers");
+				return;
+			}
 		}
 	}
 

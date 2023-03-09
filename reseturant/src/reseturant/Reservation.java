@@ -2,17 +2,13 @@ package reseturant;
 
 public class Reservation {
 	private Dish[] dishs;
-	private int NumOfDishs=dishs.length;
+	private int tableNum;
 	private double totalPrice = 0;
 
-	
-	public int getNumOfDishs(){
-		return NumOfDishs;
-	}
+public Reservation(int tableNum) {
+	this.setTableNum(tableNum);
+}
 
-	public void setNumOfDishs(int numOfDishs) {
-		NumOfDishs = numOfDishs;
-	}
 
 	public Dish[] getDishs() {
 		return dishs;
@@ -20,6 +16,26 @@ public class Reservation {
 
 	public void setDishs(Dish[] dishs) {
 		this.dishs = dishs;
+	}
+
+
+	public int getTableNum() {
+		return tableNum;
+	}
+
+
+	public void setTableNum(int tableNum) {
+		this.tableNum = tableNum;
+	}
+
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	
 }

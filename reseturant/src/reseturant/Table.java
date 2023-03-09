@@ -4,17 +4,21 @@ public class Table {
 
 	private int tableNumber;
 	private int seatsNumber;
-	private boolean didReservation = false;
-	private Customer[] seatsCustomers; 
 	private Waiter waiter;
 
+	private boolean didReservation = false;
 	private boolean available;
+	private Customer[] seatsCustomers; 
 	private Reservation reservation;
 	
 	
-	public Table(int numOfSeats) {
-		
+	public Table(int tableNumber, int numOfSeats) {
+		this.available = true;
+		this.seatsNumber = numOfSeats;
+		this.seatsCustomers = new Customer[seatsNumber]; 
+		this.reservation = new Reservation(tableNumber);
 	}
+
 	public int getSeatsNumber() {
 		return seatsNumber;
 	}
@@ -26,13 +30,7 @@ public class Table {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-	
-	public Table(int tableNumber, int numOfSeats) {
-		this.available = true;
-		this.seatsNumber = numOfSeats;
-		this.seatsCustomers = new Customer[seatsNumber]; 
-		
-	}
+
 
 	public boolean isAvailable() {
 		return available;
@@ -54,9 +52,7 @@ public class Table {
 		return reservation;
 	}
 	
-	public void setReservations(Dish[] dishs) {
-		this.reservation = reservation;
-	}
+
 
 	public Customer[] getSeatsCustomers() {
 		return seatsCustomers;
@@ -77,6 +73,14 @@ public class Table {
 	}
 	public void setDidReservation(boolean didReservation) {
 		this.didReservation = didReservation;
+	}
+	
+	public void cleanTable() {
+		this.available = true;
+		this.didReservation = false;
+		this.seatsCustomers = null;
+		this.reservation = new Reservation(this.tableNumber);
+
 	}
 
 }
