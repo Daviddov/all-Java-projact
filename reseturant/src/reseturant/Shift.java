@@ -1,6 +1,7 @@
 package reseturant;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -9,7 +10,8 @@ import javax.print.attribute.standard.PrinterMakeAndModel;
 public class Shift {
 
 	private String name;
-	private Workers[] shiftWorkers;
+	private ArrayList<Workers> shiftWorkers = new ArrayList<Workers>();
+
 	private Customer[] customers;
 	private final int MAX_CUSTOMERS = 100;
 	private final int MAX_CUSTOMERS_SEATS = 50;
@@ -19,68 +21,68 @@ public class Shift {
 	private int waitersNum = 4;
 	private int cookersNum = 3;
 	private Hostess hostess;
-	private Table[] tables;
+	private ArrayList<Table> tables = new ArrayList<Table>();
 	private Queue<Reservation> allReservations = new ArrayDeque<>();
 	private Cooker chaf;
 	private double shiftCash = 0;
 
-	public Shift(String Shift, Workers[] allWorkers, ShiftManager shiftManager, Hostess hostess, Table[] tables,
-			Menu menu) {
+	public Shift(String Shift, ArrayList<Workers> workers, ShiftManager shiftManager, Hostess hostess,
+			ArrayList<Table> tables, Menu menu) {
 		this.setName(Shift);
 		this.shfitManeger = shiftManager;
 		this.hostess = hostess;
 		this.tables = tables;
+
 //1
-		shfitManeger.assignWorkersShift(allWorkers, shiftWorkers, cookersNum, waitersNum, tables);
+		shfitManeger.assignWorkersShift(workers, shiftWorkers, cookersNum, waitersNum, tables);
 		// 2
 		shiftManager.assignTablesWaiters(shiftWorkers);
-//3
-		customers = new Customer[MAX_CUSTOMERS];
-		// 4
-		seatCustomer(4);
-		// 5 add resavetion
-		for (int i = 0; i < tables.length; i++) {
-			if (!tables[i].isAvailable() && !tables[i].isDidReservation()) {
-				int numOfDish = 2;
-				Dish[] dishesReservation = new Dish[numOfDish];
-				dishesReservation[0] = menu.getDishsToArray()[0];
-				dishesReservation[1] = menu.getDishsToArray()[1];
+////3
+//		customers = new Customer[MAX_CUSTOMERS];
+//		// 4
+//		seatCustomer(4);
+//		// 5 add resavetion
+//
+//		for (int i = 0; i < tables.size(); i++) {
+//			if (!tables.get(i).isAvailable() && !tables.get(i).isDidReservation()) {
+//				int numOfDish = 2;
+//				Dish[] dishesReservation = new Dish[numOfDish];
+//				dishesReservation[0] = menu.getDishsToArray()[0];
+//				dishesReservation[1] = menu.getDishsToArray()[1];
+//
+//				tables.get(i).getWaiter().takeReservation(tables.get(i), dishesReservation);
+//				allReservations.add(tables.get(i).getReservation());
+//			}
+//		}
+//		// set chaf
+//		for (int i = 0; i < shiftWorkers.size(); i++) {
+//			if (shiftWorkers.get(i) instanceof Cooker) {
+//				chaf = (Cooker) shiftWorkers.get(i);
+//				break;
+//			}
+//		}
+//
+//		// 6 cook bon
+//		chaf.makeTheBon(allReservations.peek());
+//
+//		// 7 wiater take the dishs to the customer
+//		int tableNum = allReservations.peek().getTableNum();
+//		for (int i = 0; i < tables.size(); i++) {
+//			if (tableNum == tables.get(i).getTableNumber()) {
+//				tables.get(i).getWaiter().serveDishs(allReservations.remove());
+//				break;
+//			}
+//		}
+//		// 8 end diner --> pay and live
+//		endOfMeal(tables.get(0).getTableNumber());
 
-				tables[i].getWaiter().takeReservation(tables[i], dishesReservation);
-				allReservations.add(tables[i].getReservation());
-			}
-		}
-		// set chaf
-		for (int i = 0; i < shiftWorkers.length; i++) {
-			if (shiftWorkers[i] instanceof Cooker) {
-				chaf = (Cooker) shiftWorkers[i];
-				break;
-			}
-		}
-
-		// 6 cook bon
-		chaf.makeTheBon(allReservations.peek());
-
-		// 7 wiater take the dishs to the customer
-		int tableNum = allReservations.peek().getTableNum();
-		for (int i = 0; i < tables.length; i++) {
-			if (tableNum == tables[i].getTableNumber()) {
-				tables[i].getWaiter().serveDishs(allReservations.remove());
-				break;
-			}
-		}
-		// 8 end diner --> pay and live
-		endOfMeal(tables[0].getTableNumber());
-		
-		
-		
 	}
 
 	private void endOfMeal(int tableNum) {
-		for (int i = 0; i < tables.length; i++) {
-			if (tableNum == tables[i].getTableNumber()) {
-				this.shiftCash += tables[i].getReservation().getTotalPrice();
-				tables[i].cleanTable();
+		for (int i = 0; i < tables.size(); i++) {
+			if (tableNum == tables.get(i).getTableNumber()) {
+				this.shiftCash += tables.get(i).getReservation().getTotalPrice();
+				tables.get(i).cleanTable();
 				break;
 			}
 		}

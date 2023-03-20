@@ -1,32 +1,32 @@
 package reseturant;
 
+import java.util.ArrayList;
+
 public class Hostess extends Workers {
 
 	public Hostess(int salary, String name) {
 		super(salary, name);
 
 	}
-private Table findTableAvailable(Table[] tables) {
-	for (int i = 0; i < tables.length; i++) {
+private Table findTableAvailable(ArrayList<Table> tables) {
+	for (int i = 0; i < tables.size(); i++) {
 		
-			Table table = tables[i];
+			Table table = tables.get(i);
 			if (table.isAvailable()) {
 				return table;
-
 			}
 		}
-	
 	return null;
 }
 	
-	public Customer[] seatCustomers(Customer[] newCustomers, Table[] tables) {
+	public Customer[] seatCustomers(Customer[] newCustomers, ArrayList<Table> tables) {
 		//(need to build search for smallest table)
 		int availableTables = 0;
 		int alradySeats = 0;
 		Customer[] seatCustomers = new Customer[newCustomers.length];
 		
-		for (int i = 0; i < tables.length; i++) {
-			if (tables[i].isAvailable()) {
+		for (int i = 0; i < tables.size(); i++) {
+			if (tables.get(i).isAvailable()) {
 				availableTables++;
 			}
 		}

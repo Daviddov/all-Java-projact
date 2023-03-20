@@ -13,6 +13,7 @@ public class Table {
 	
 	
 	public Table(int tableNumber, int numOfSeats) {
+		this.tableNumber = tableNumber;
 		this.available = true;
 		this.seatsNumber = numOfSeats;
 		this.seatsCustomers = new Customer[seatsNumber]; 
