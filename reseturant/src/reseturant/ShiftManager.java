@@ -2,6 +2,7 @@ package reseturant;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ShiftManager extends ManagerialPerson {
 	private ArrayList<Table> tables = new ArrayList<Table>();
@@ -13,6 +14,48 @@ public class ShiftManager extends ManagerialPerson {
 
 	}
 
+	
+//error -->
+//	public void waiterToTableByName() { 
+//		Scanner in = new Scanner(System.in);
+//// wiater to table
+//		for (int i = 0; i < shfitWorkers.size(); i++) {
+//			if(shfitWorkers.get(i) instanceof Waiter) {
+//				System.out.println(shfitWorkers.get(i).getName());
+//			}
+//		}
+//			System.out.println("enter the waiter name");
+//			String waiterName = in.nextLine();
+//			System.out.println("enter table number");
+//			for (int i = 0; i < tables.size(); i++) {
+//					System.out.println(tables.get(i).getTableNumber());
+//			}
+//			int tableNum = in.nextInt();
+//			Waiter waiter = lookeForWaiter(waiterName);
+//			Table table = lookForTable(tableNum);
+//			assignWaiterToTable(waiter, table);
+//			System.out.println("Done");
+//			
+//	}
+	
+	private Waiter lookeForWaiter(String waiterName) {
+		for (int i = 0; i < shfitWorkers.size(); i++) {
+			if(shfitWorkers.get(i).getName() == waiterName ) {
+				return (Waiter) shfitWorkers.get(i);
+			}
+		}
+		return null;
+	}
+	
+	private Table lookForTable(int tableNum) {
+		for (int i = 0; i < tables.size(); i++) {
+			if(tables.get(i).getTableNumber() == tableNum ) {
+				return  tables.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public void assignWorkersShift(ArrayList<Workers> workers, ArrayList<Workers> shiftWorkers, int cookers,
 			int waiters, ArrayList<Table> tables) {
 		this.tables = tables;
@@ -60,8 +103,7 @@ public class ShiftManager extends ManagerialPerson {
 		for (int k = 0; k < TablesForWaiter; k++) {
 			for (int j = 0; j < tables.size(); j++) {
 				if (!isWaiterToTable(tables.get(j))) {
-					assignWaitersToTable(waiter, tables.get(j));
-					System.out.println("assign waiter " + waiter.getName() + " to table " + tables.get(j).getTableNumber());
+					assignWaiterToTable(waiter, tables.get(j));
 					break;
 				}
 			}
@@ -75,8 +117,9 @@ public class ShiftManager extends ManagerialPerson {
 		return true;
 	}
 
-	public void assignWaitersToTable(Waiter waiter, Table table) {
+	public void assignWaiterToTable(Waiter waiter, Table table) {
 		table.setWaiter(waiter);
+		System.out.println("assign waiter " + waiter.getName() + " to table " + table.getTableNumber());
 	}
 
 	public ArrayList<Workers> getShfitWorkers() {

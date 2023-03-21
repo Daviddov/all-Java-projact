@@ -3,29 +3,29 @@ package reseturant;
 public class Table {
 
 	private int tableNumber;
-	private int seatsNumber;
+	private int sitsNumber;
 	private Waiter waiter;
 
 	private boolean didReservation = false;
 	private boolean available;
-	private Customer[] seatsCustomers; 
+	private Customer[] sitsCustomers; 
 	private Reservation reservation;
 	
 	
-	public Table(int tableNumber, int numOfSeats) {
+	public Table(int tableNumber, int numOfsits) {
 		this.tableNumber = tableNumber;
 		this.available = true;
-		this.seatsNumber = numOfSeats;
-		this.seatsCustomers = new Customer[seatsNumber]; 
+		this.sitsNumber = numOfsits;
+		this.sitsCustomers = new Customer[sitsNumber]; 
 		this.reservation = new Reservation(tableNumber);
 	}
 
-	public int getSeatsNumber() {
-		return seatsNumber;
+	public int getSitsNumber() {
+		return sitsNumber;
 	}
 	
-	public void setSeatNumber(int seatNumber) {
-		this.seatsNumber = seatNumber;
+	public void setSitNumber(int sitNumber) {
+		this.sitsNumber = sitNumber;
 	}
 	
 	public void setReservation(Reservation reservation) {
@@ -52,15 +52,13 @@ public class Table {
 	public Reservation getReservation() {
 		return reservation;
 	}
-	
 
-
-	public Customer[] getSeatsCustomers() {
-		return seatsCustomers;
+	public Customer[] getSitsCustomers() {
+		return sitsCustomers;
 	}
 
-	public void setSeatsCustomers(Customer[] seatsCustomers) {
-		this.seatsCustomers = seatsCustomers;
+	public void setsitsCustomers(Customer[] sitsCustomers) {
+		this.sitsCustomers = sitsCustomers;
 	}
 	public Waiter getWaiter() {
 		return waiter;
@@ -79,7 +77,7 @@ public class Table {
 	public void cleanTable() {
 		this.available = true;
 		this.didReservation = false;
-		this.seatsCustomers = null;
+		this.sitsCustomers = null;
 		this.reservation = new Reservation(this.tableNumber);
 
 	}

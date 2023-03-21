@@ -16,9 +16,10 @@ public class Manager extends ManagerialPerson{
 		this.tables = tables;
 		this.workers.add(new ShiftManager(1111, "workerName"));
 		this.workers.add(new Hostess(1111, "workerName"));
-		manegerMenu();
+		
+		menu();
 	}
-	private void manegerMenu() {
+	public void menu() {
 		Scanner in = new Scanner(System.in);
 		System.out.println(" 1. add table \n 2. add shift manger \n 3. add hostes \n 4. add cooker \n 5. add waiter \n 6. add dish \n 7. open shift" );
 		int input = in.nextInt();
@@ -29,11 +30,11 @@ public class Manager extends ManagerialPerson{
 		Scanner in = new Scanner(System.in);
 		switch (input) {
 		case 1: { //add table
-			System.out.println("enter num of seats");
-			int numOfSeats = in.nextInt();
-			addTable(numOfSeats);
+			System.out.println("enter num of sits");
+			int numOfsits = in.nextInt();
+			addTable(numOfsits);
 			System.out.println("Done");
-			manegerMenu();
+			menu();
 		}
 		break;
 		case 2: {// add shift manager
@@ -43,7 +44,7 @@ public class Manager extends ManagerialPerson{
 			int salery = in.nextInt();
 			workers.add(new ShiftManager(salery, workerName));
 			System.out.println("Done");
-			manegerMenu();
+			menu();
 			
 		}
 		break;
@@ -54,7 +55,7 @@ public class Manager extends ManagerialPerson{
 			int salery = in.nextInt();
 			workers.add(new Hostess(salery, workerName));
 			System.out.println("Done");
-			manegerMenu();
+			menu();
 			
 		}
 		break;
@@ -65,7 +66,7 @@ public class Manager extends ManagerialPerson{
 			int salery = in.nextInt();
 			workers.add(new Cooker(salery, workerName));
 			System.out.println("Done");
-			manegerMenu();
+			menu();
 			
 		}
 		break;
@@ -76,7 +77,7 @@ public class Manager extends ManagerialPerson{
 			int salery = in.nextInt();
 			workers.add(new Waiter(salery, workerName));
 			System.out.println("Done");
-			manegerMenu();
+			menu();
 			
 		}
 		break;
@@ -89,7 +90,7 @@ public class Manager extends ManagerialPerson{
 			int amount = in.nextInt();
 			menu.addDish(new Dish(dishName, price, amount));
 			System.out.println("Done");
-			manegerMenu();
+			menu();
 			
 		}
 		break;
@@ -99,13 +100,13 @@ public class Manager extends ManagerialPerson{
 		}
 		break;
 		default:
-			manegerMenu();
+			menu();
 		}
 	}
 	
 	
-	private void addTable(int numOfSeats) {
-		this.tables.add(new Table(tables.size(), numOfSeats));
+	private void addTable(int numOfsits) {
+		this.tables.add(new Table(tables.size(), numOfsits));
 	}
 	
 	public void addDishToMenu(String name, int price, int amount) {

@@ -25,15 +25,15 @@ public class Restaurant {
 		waiters(4);// add waiters
 		cookers(3);// add cookers
 
-		reseturantManeger = new Manager(7000, "Mosh", menu, workers, tables);// add manager
 
 		this.menu = new Menu();
-		menu.addDish(new Dish("Pizza", 40, 10));
+		this.menu.addDish(new Dish("Pizza", 40, 10));
+		reseturantManeger = new Manager(7000, "Mosh", menu, workers, tables);// add manager
 	}
 
-	private void createTables(int num, int numOfSeats) {
+	private void createTables(int num, int numOfsits) {
 		for (int i = 0; i < num; i++) {
-			this.tables.add(new Table(tables.size()+1, numOfSeats));
+			this.tables.add(new Table(tables.size()+1, numOfsits));
 		}
 	}
 

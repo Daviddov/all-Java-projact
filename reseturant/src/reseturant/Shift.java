@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 import javax.print.attribute.standard.PrinterMakeAndModel;
 
@@ -14,8 +15,8 @@ public class Shift {
 
 	private Customer[] customers;
 	private final int MAX_CUSTOMERS = 100;
-	private final int MAX_CUSTOMERS_SEATS = 50;
-	private LinkedList<Customer> seatingCustomers = new LinkedList<Customer>();
+	private final int MAX_CUSTOMERS_sitS = 50;
+	private LinkedList<Customer> sitingCustomers = new LinkedList<Customer>();
 	private int customersCount = 0;
 	private ShiftManager shfitManeger;
 	private int waitersNum = 4;
@@ -25,23 +26,24 @@ public class Shift {
 	private Queue<Reservation> allReservations = new ArrayDeque<>();
 	private Cooker chaf;
 	private double shiftCash = 0;
-
+private Menu menu;
 	public Shift(String Shift, ArrayList<Workers> workers, ShiftManager shiftManager, Hostess hostess,
 			ArrayList<Table> tables, Menu menu) {
 		this.setName(Shift);
 		this.shfitManeger = shiftManager;
 		this.hostess = hostess;
 		this.tables = tables;
-
-//1
+		this.chaf = setChaf();
+		this.menu = menu;
+//1 Auto
 		shfitManeger.assignWorkersShift(workers, shiftWorkers, cookersNum, waitersNum, tables);
-		// 2
+		// 2 Auto
 		shiftManager.assignTablesWaiters(shiftWorkers);
-////3
-//		customers = new Customer[MAX_CUSTOMERS];
+////3 Auto
+		customers = new Customer[MAX_CUSTOMERS];
 //		// 4
-//		seatCustomer(4);
-//		// 5 add resavetion
+//		sitCustomer(4);
+//		// 5 make resavetion
 //
 //		for (int i = 0; i < tables.size(); i++) {
 //			if (!tables.get(i).isAvailable() && !tables.get(i).isDidReservation()) {
@@ -52,13 +54,6 @@ public class Shift {
 //
 //				tables.get(i).getWaiter().takeReservation(tables.get(i), dishesReservation);
 //				allReservations.add(tables.get(i).getReservation());
-//			}
-//		}
-//		// set chaf
-//		for (int i = 0; i < shiftWorkers.size(); i++) {
-//			if (shiftWorkers.get(i) instanceof Cooker) {
-//				chaf = (Cooker) shiftWorkers.get(i);
-//				break;
 //			}
 //		}
 //
@@ -75,9 +70,133 @@ public class Shift {
 //		}
 //		// 8 end diner --> pay and live
 //		endOfMeal(tables.get(0).getTableNumber());
+		menu();
+	}
+
+	public void menu() {
+		System.out.println(" 1. hostes \n 2. shift manager \n 3. waiter \n 4. cooker \n 5. costumer");
+		Scanner in = new Scanner(System.in);
+		int input = in.nextInt();
+		handleChois(input);
 
 	}
 
+	private void handleChois(int input) {
+		switch (input) {
+		case 1: {
+			hostessMenu();
+			break;
+		}
+		case 2: {
+			shfitManegerMenu();
+			break;
+		}
+		case 3: {
+		waiterMenu();
+			break;
+		}
+		case 4: {
+//		cookerMenu();
+			break;
+		}
+
+		default:
+			menu();
+		}
+	}
+
+	private void hostessMenu() {
+		System.out.println(" 1. new costumers \n 2. exit");
+		Scanner in = new Scanner(System.in);
+		int input = in.nextInt();
+		handleHostessChois(input);
+	}
+
+	private void handleHostessChois(int input) {
+		Scanner in = new Scanner(System.in);
+		switch (input) {
+		case 1: {
+			System.out.println(" How many customers came?");
+			int input2 = in.nextInt();
+			sitCustomer(input2);
+			hostessMenu();
+			break;
+		}
+
+		case 2: {
+			menu();
+			break;
+		}
+
+		default:
+			hostessMenu();
+		}
+	}
+
+	private void shfitManegerMenu() {
+		System.out.println(" 1. assign wiater to table  \n 2.exit");
+		Scanner in = new Scanner(System.in);
+		int input = in.nextInt();
+		handleShfitManegerChois(input);
+	}
+
+	private void handleShfitManegerChois(int input) {
+		Scanner in = new Scanner(System.in);
+		switch (input) {
+		case 1: {
+//			shfitManeger.waiterToTableByName();
+			shfitManegerMenu();
+			break;
+		}
+		case 2: {
+			menu();
+			break;
+		}
+		default:
+			shfitManegerMenu();
+		}
+	}
+
+	private void waiterMenu() {
+		System.out.println(" 1. make resavetion \n 2.end diner \n 3. exit");
+		Scanner in = new Scanner(System.in);
+		int input = in.nextInt();
+		handleWaiterChois(input);
+	}
+
+private void handleWaiterChois(int input) {
+	Scanner in = new Scanner(System.in);
+	switch (input) {
+	case 1: {
+		showMenu(menu);
+		makeRasvation();
+		waiterMenu();
+		break;
+	}
+	case 2: {
+		
+		waiterMenu();
+		break;
+	}
+	case 3: {
+		menu();
+		break;
+	}
+	default:
+		waiterMenu();
+	}
+}
+
+private void showMenu(Menu menu){
+	LinkedList<Dish> menuDishs = menu.getDishs();
+	for (int i = 0; i < menuDishs.size() ; i++) {
+		System.out.println(i+"." + menuDishs.get(i).getName());
+	}
+}
+
+private void makeRasvation() {
+	--
+}
 	private void endOfMeal(int tableNum) {
 		for (int i = 0; i < tables.size(); i++) {
 			if (tableNum == tables.get(i).getTableNumber()) {
@@ -88,12 +207,12 @@ public class Shift {
 		}
 	}
 
-	private void seatCustomer(int newCustomers) {
-		Customer[] newSeatCustomers;
-		newSeatCustomers = new Customer[newCustomers];
-		newSeatCustomers = hostess.seatCustomers(customers(newCustomers), tables);
-//update all seat customers
-		addSeatingCustomers(newSeatCustomers);
+	private void sitCustomer(int newCustomers) {
+		Customer[] newsitCustomers;
+		newsitCustomers = new Customer[newCustomers];
+		newsitCustomers = hostess.sitCustomers(customers(newCustomers), tables);
+//update all sit customers
+		addSitingCustomers(newsitCustomers);
 
 	}
 
@@ -124,26 +243,35 @@ public class Shift {
 		this.name = name;
 	}
 
-	public LinkedList<Customer> getSeatingCustomer() {
-		return seatingCustomers;
+	private Cooker setChaf(){
+		for (int i = 0; i < shiftWorkers.size(); i++) {
+			if (shiftWorkers.get(i) instanceof Cooker) {
+				return (Cooker) shiftWorkers.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public LinkedList<Customer> getsitingCustomer() {
+		return sitingCustomers;
 	}
 
-	public void setSeatingCustomer(LinkedList<Customer> seatingCustomer) {
-		this.seatingCustomers = seatingCustomer;
+	public void setSitingCustomer(LinkedList<Customer> sitingCustomer) {
+		this.sitingCustomers = sitingCustomer;
 	}
 
-	public void addSeatingCustomers(Customer[] customers) {
+	public void addSitingCustomers(Customer[] customers) {
 		for (int i = 0; i < customers.length; i++) {
-			seatingCustomers.add(customers[i]);
+			sitingCustomers.add(customers[i]);
 		}
 	}
 
-	public void addSeatingCustomer(Customer customer) {
-		seatingCustomers.add(customer);
+	public void addSitingCustomer(Customer customer) {
+		sitingCustomers.add(customer);
 	}
 
-	public int getMAX_CUSTOMERS_SEATS() {
-		return MAX_CUSTOMERS_SEATS;
+	public int getMAX_CUSTOMERS_sitS() {
+		return MAX_CUSTOMERS_sitS;
 	}
 
 	public double getShiftCash() {
