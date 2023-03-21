@@ -2,11 +2,8 @@ package reseturant;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-
-import javax.print.attribute.standard.PrinterMakeAndModel;
 
 public class Shift {
 
@@ -16,7 +13,7 @@ public class Shift {
 	private Customer[] customers;
 	private final int MAX_CUSTOMERS = 100;
 	private final int MAX_CUSTOMERS_sitS = 50;
-	private LinkedList<Customer> sitingCustomers = new LinkedList<Customer>();
+	private ArrayList<Customer> sitingCustomers = new ArrayList<Customer>();
 	private int customersCount = 0;
 	private ShiftManager shfitManeger;
 	private int waitersNum = 4;
@@ -26,7 +23,9 @@ public class Shift {
 	private Queue<Reservation> allReservations = new ArrayDeque<>();
 	private Cooker chaf;
 	private double shiftCash = 0;
-private Menu menu;
+	private Menu menu;
+	private ArrayList<Dish> newResavtion = new ArrayList<Dish>();
+	
 	public Shift(String Shift, ArrayList<Workers> workers, ShiftManager shiftManager, Hostess hostess,
 			ArrayList<Table> tables, Menu menu) {
 		this.setName(Shift);
@@ -92,7 +91,7 @@ private Menu menu;
 			break;
 		}
 		case 3: {
-		waiterMenu();
+			waiterMenu();
 			break;
 		}
 		case 4: {
@@ -158,45 +157,71 @@ private Menu menu;
 	}
 
 	private void waiterMenu() {
+		Scanner in = new Scanner(System.in);
 		System.out.println(" 1. make resavetion \n 2.end diner \n 3. exit");
+		int input = in.nextInt();
+			handleWaiterChois(input);	
+	}
+
+	private void handleWaiterChois(int input) {
+		Scanner in = new Scanner(System.in);
+		switch (input) {
+		case 1: {
+			int tableNum = selectTable();
+			showMenu(menu);
+			makeRasvation(tableNum);
+			waiterMenu();
+			break;
+		}
+		case 2: {
+			int tableNum = selectTable();
+			waiterMenu();
+			break;
+		}
+		case 3: {
+			menu();
+			break;
+		}
+		default:
+			waiterMenu();
+		}
+	}
+	private int selectTable() {
+		Scanner in = new Scanner(System.in);
+		for (int i = 0; i < tables.size(); i++) {
+			System.out.println(i+". "+ tables.get(i).getTableNumber());
+		}
+		System.out.println("choose table number");
+		return in.nextInt();
+	}
+	private void showMenu(Menu menu) {
+		ArrayList<Dish> menuDishs = menu.getDishs();
+		for (int i = 0; i < menuDishs.size(); i++) {
+			System.out.println(i + "." + menuDishs.get(i).getName());
+		}
+	}
+
+	private void makeRasvation(int tableNum) {
+		
+		addDishToResavtion(newResavtion);
+		Waiter tableWaiter = tables.get(tableNum).getWaiter();
+		tableWaiter.takeReservation(tables.get(tableNum), newResavtion);
+		allReservations.add(tables.get(tableNum).getReservation());
+	}
+
+	private void addDishToResavtion(ArrayList<Dish> newResavtion) {
+		System.out.println("choose a dish");
 		Scanner in = new Scanner(System.in);
 		int input = in.nextInt();
-		handleWaiterChois(input);
-	}
-
-private void handleWaiterChois(int input) {
-	Scanner in = new Scanner(System.in);
-	switch (input) {
-	case 1: {
-		showMenu(menu);
-		makeRasvation();
-		waiterMenu();
-		break;
-	}
-	case 2: {
+		newResavtion.add((Dish) menu.getDishs().toArray()[input]);
 		
-		waiterMenu();
-		break;
+		System.out.println("Do you want another one \n 1. Yes \n 2. No");
+		input = in.nextInt();
+		if(input == 1) {
+			addDishToResavtion(newResavtion);
+		} 
 	}
-	case 3: {
-		menu();
-		break;
-	}
-	default:
-		waiterMenu();
-	}
-}
-
-private void showMenu(Menu menu){
-	LinkedList<Dish> menuDishs = menu.getDishs();
-	for (int i = 0; i < menuDishs.size() ; i++) {
-		System.out.println(i+"." + menuDishs.get(i).getName());
-	}
-}
-
-private void makeRasvation() {
-	--
-}
+	
 	private void endOfMeal(int tableNum) {
 		for (int i = 0; i < tables.size(); i++) {
 			if (tableNum == tables.get(i).getTableNumber()) {
@@ -243,7 +268,7 @@ private void makeRasvation() {
 		this.name = name;
 	}
 
-	private Cooker setChaf(){
+	private Cooker setChaf() {
 		for (int i = 0; i < shiftWorkers.size(); i++) {
 			if (shiftWorkers.get(i) instanceof Cooker) {
 				return (Cooker) shiftWorkers.get(i);
@@ -251,12 +276,12 @@ private void makeRasvation() {
 		}
 		return null;
 	}
-	
-	public LinkedList<Customer> getsitingCustomer() {
+
+	public ArrayList<Customer> getsitingCustomer() {
 		return sitingCustomers;
 	}
 
-	public void setSitingCustomer(LinkedList<Customer> sitingCustomer) {
+	public void setSitingCustomer(ArrayList<Customer> sitingCustomer) {
 		this.sitingCustomers = sitingCustomer;
 	}
 

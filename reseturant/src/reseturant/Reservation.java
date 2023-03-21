@@ -1,7 +1,9 @@
 package reseturant;
 
+import java.util.ArrayList;
+
 public class Reservation {
-	private Dish[] dishs;
+	private ArrayList<Dish> dishes = new ArrayList<>();
 	private int tableNum;
 	private double totalPrice = 0;
 
@@ -10,13 +12,11 @@ public Reservation(int tableNum) {
 }
 
 
-	public Dish[] getDishs() {
-		return dishs;
+	public ArrayList<Dish> getDishes() {
+		return dishes;
 	}
 
-	public void setDishs(Dish[] dishs) {
-		this.dishs = dishs;
-	}
+	
 
 
 	public int getTableNum() {
@@ -37,5 +37,14 @@ public Reservation(int tableNum) {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+
+
+	public void setDishes(ArrayList<Dish> reservationDishes) {
+	this.dishes =reservationDishes;
+		
+	}
+
+
+	
 	
 }

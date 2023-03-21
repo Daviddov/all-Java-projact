@@ -1,20 +1,18 @@
 package reseturant;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Menu {
 	
-	private LinkedList<Dish> dishs = new LinkedList<Dish>();
+	private ArrayList<Dish> dishs = new ArrayList<Dish>();
 
-	public LinkedList<Dish> getDishs() {
+	public ArrayList<Dish> getDishs() {
 		return dishs;
 	}
 	
-	public Dish[] getDishsToArray() {
-		return (Dish[]) dishs.toArray();
-	}
 
-	public void setDishs(LinkedList<Dish> dishs) {
+	public void setDishs(ArrayList<Dish> dishs) {
 		this.dishs = dishs;
 	}
 	
