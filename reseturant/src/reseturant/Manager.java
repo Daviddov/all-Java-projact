@@ -21,7 +21,7 @@ public class Manager extends ManagerialPerson{
 	}
 	public void menu() {
 		Scanner in = new Scanner(System.in);
-		System.out.println(" 1. add table \n 2. add shift manger \n 3. add hostes \n 4. add cooker \n 5. add waiter \n 6. add dish \n 7. open shift" );
+		System.out.println(" 1. open shift \n 2. add shift manger \n 3. add hostes \n 4. add cooker \n 5. add waiter \n 6. add dish \n 7. add table" );
 		int input = in.nextInt();
 		handleMenagerChois(input);
 	}
@@ -29,12 +29,9 @@ public class Manager extends ManagerialPerson{
 	private void handleMenagerChois(int input) {
 		Scanner in = new Scanner(System.in);
 		switch (input) {
-		case 1: { //add table
-			System.out.println("enter num of sits");
-			int numOfsits = in.nextInt();
-			addTable(numOfsits);
-			System.out.println("Done");
-			menu();
+		case 1: {//open shift
+			this.shift = new Shift("day shift", workers, getShiftManegar(), getHostess(), tables, menu);
+			
 		}
 		break;
 		case 2: {// add shift manager
@@ -94,11 +91,15 @@ public class Manager extends ManagerialPerson{
 			
 		}
 		break;
-		case 7: {//open shift
-			this.shift = new Shift("day shift", workers, getShiftManegar(), getHostess(), tables, menu);
-			
+		case 7: { //add table
+			System.out.println("enter num of sits");
+			int numOfsits = in.nextInt();
+			addTable(numOfsits);
+			System.out.println("Done");
+			menu();
 		}
 		break;
+		
 		default:
 			menu();
 		}

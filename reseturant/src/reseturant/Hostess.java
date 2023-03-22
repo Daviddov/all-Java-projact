@@ -46,8 +46,9 @@ public class Hostess extends Workers {
 //					seatCustomers costumer in seat
 					table.getSitsCustomers()[j] = newCustomers[alradySeats];
 //					inset the costumers they alrady Seats to new array
-					seatCustomers[j] = newCustomers[alradySeats++];
-					System.out.println("costomer seat!");
+					seatCustomers[j] = newCustomers[alradySeats];
+					System.out.println(newCustomers[alradySeats].getName()+" costomer seat in table "+table.getTableNumber());
+					alradySeats++;
 				}
 				table.setAvailable(false);
 			

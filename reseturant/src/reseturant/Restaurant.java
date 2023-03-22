@@ -28,6 +28,7 @@ public class Restaurant {
 
 		this.menu = new Menu();
 		this.menu.addDish(new Dish("Pizza", 40, 10));
+		this.menu.addDish(new Dish("Pasata", 40, 10));
 		reseturantManeger = new Manager(7000, "Mosh", menu, workers, tables);// add manager
 	}
 
