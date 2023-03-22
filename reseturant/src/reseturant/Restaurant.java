@@ -28,8 +28,11 @@ public class Restaurant {
 
 		this.menu = new Menu();
 		this.menu.addDish(new Dish("Pizza", 40, 10));
-		this.menu.addDish(new Dish("Pasata", 40, 10));
-		reseturantManeger = new Manager(7000, "Mosh", menu, workers, tables);// add manager
+		this.menu.addDish(new Dish("Pasta", 40, 10));
+		reseturantManeger = new Manager(7000, "Mosh", menu, workers, tables, shift);// add manager
+		
+		endShift();
+		
 	}
 
 	private void createTables(int num, int numOfsits) {
@@ -40,13 +43,13 @@ public class Restaurant {
 
 	private void waiters(int num) {
 		for (int i = 0; i < num; i++) {
-			workers.add(new Waiter(2500, "waiters " + workers.size()));
+			workers.add(new Waiter(2500, "waiters" + workers.size()));
 		}
 	}
 
 	private void cookers(int num) {
 		for (int i = 0; i < num; i++) {
-			workers.add(new Cooker(3000, "cooker " + workers.size()));
+			workers.add(new Cooker(3000, "cooker" + workers.size()));
 		}
 	}
 
@@ -94,5 +97,6 @@ public class Restaurant {
 	public void endShift() {
 		setRestaurantCash(getRestaurantCash() + this.shift.getShiftCash());
 		this.shift = null;
+		System.out.println("restaurant cash "+ restaurantCash);
 	}
 }

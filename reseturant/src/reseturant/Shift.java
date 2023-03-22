@@ -49,14 +49,14 @@ public class Shift {
 //		// 6 cook bon
 //
 //		// 7 wiater take the dishs to the customer	
-		
+
 //		// 8 end diner --> pay and live
 //		endOfMeal(tables.get(0).getTableNumber());
 		menu();
 	}
 
 	public void menu() {
-		System.out.println(" 1. hostes \n 2. shift manager \n 3. waiter \n 4. cooker \n 5. costumer");
+		System.out.println(" 1. hostes \n 2. shift manager \n 3. waiter \n 4. cooker \n 5. costumer \n 6. end shift");
 		Scanner in = new Scanner(System.in);
 		int input = in.nextInt();
 		handleChois(input);
@@ -74,16 +74,21 @@ public class Shift {
 			break;
 		}
 		case 3: {
-			waiterMenu();
+			Waiter waiter = chooseWaiter();
+			waiterMenu(waiter);
 			break;
 		}
 		case 4: {
 			cookerMenu();
 			break;
 		}
+		case 5: {
+			menu();
+			break;
+		}
 
 		default:
-			menu();
+//			end shift
 		}
 	}
 
@@ -126,9 +131,10 @@ public class Shift {
 		Scanner in = new Scanner(System.in);
 		switch (input) {
 		case 1: {
-			
+
 			Waiter waiter = chooseWaiter();
-			printTables();
+//			printTables();
+			printWaiterTables(waiter.getName());
 			Table table = chooseTable();
 			shfitManeger.assignWaiterToTable(waiter, table);
 			shfitManegerMenu();
@@ -152,7 +158,7 @@ public class Shift {
 	}
 
 	private Waiter chooseWaiter() {
-		 printWaiters();
+		printWaiters();
 		Scanner in = new Scanner(System.in);
 		System.out.println("select waiter");
 		int waiterNum = in.nextInt();
@@ -165,6 +171,14 @@ public class Shift {
 		}
 	}
 
+	private void printWaiterTables(String waiterName) {
+		for (int i = 0; i < tables.size(); i++) {
+			if (tables.get(i).getWaiter().getName() == waiterName) {
+				System.out.println(i + ". table " + tables.get(i).getTableNumber());
+			}
+		}
+	}
+
 	private Table chooseTable() {
 		Scanner in = new Scanner(System.in);
 		System.out.println("select table");
@@ -172,11 +186,12 @@ public class Shift {
 		return tables.get(tableNum);
 	}
 
-	private void waiterMenu() {
-		Waiter waiter = chooseWaiter();
+	
+	private void waiterMenu(Waiter waiter) {
+//		Waiter waiter = chooseWaiter();
 		Scanner in = new Scanner(System.in);
 		System.out
-				.println(" 1. make resavetion \n 2.show rady dishes \n 3. take dishes to table 4.end diner \n 5. exit");
+				.println(" 1. make resavetion \n 2.show rady dishes \n 3. take dishes to table \n 4.end diner \n 5. exit");
 		int input = in.nextInt();
 		handleWaiterChois(input, waiter);
 	}
@@ -185,28 +200,30 @@ public class Shift {
 		Scanner in = new Scanner(System.in);
 		switch (input) {
 		case 1: {
-			printTables();
+
+			printWaiterTables(waiter.getName());
 			int tableNum = chooseTable().getTableNumber();
 			showMenu(menu);
 			makeRasvation(tableNum);
-			waiterMenu();
+			waiterMenu(waiter);
 			break;
 		}
 		case 2: {
 			printRadyDishes(waiter.getName());
-			waiterMenu();
+			waiterMenu(waiter);
 			break;
 		}
 		case 3: {
 			takeRadyDishesToTable(waiter.getName());
-			waiterMenu();
+			waiterMenu(waiter);
 			break;
 		}
 		case 4: {
-			printTables();
+			printWaiterTables(waiter.getName());
 			int tableNum = chooseTable().getTableNumber();
 			endOfMeal(tableNum);
-			waiterMenu();
+			waiterMenu(waiter);
+			System.out.println("table number "+ tableNum+" finish");
 			break;
 		}
 		case 5: {
@@ -214,7 +231,7 @@ public class Shift {
 			break;
 		}
 		default:
-			waiterMenu();
+			waiterMenu(waiter);
 		}
 	}
 
@@ -225,10 +242,11 @@ public class Shift {
 			if (nameOfTableWaiter == waiterName) {
 				ArrayList<Dish> radyDishesToTake = new ArrayList<Dish>();
 				radyDishesToTake = radyToTake.get(i).getDishes();
-				
+
 				for (int j = 0; j < radyDishesToTake.size(); j++) {
 					System.out.println(
-							j + ". " + radyDishesToTake.get(j).getName() + "for table " + radyToTake.get(i).getTableNum());
+							radyDishesToTake.get(j).getName() + " for table " + radyToTake.get(i).getTableNum());
+
 				}
 			}
 		}
@@ -241,14 +259,14 @@ public class Shift {
 			if (nameOfTableWaiter == waiterName) {
 				ArrayList<Dish> radyDishesToTake = new ArrayList<Dish>();
 				radyDishesToTake = radyToTake.get(i).getDishes();
-				
+
 				for (int j = 0; j < radyDishesToTake.size(); j++) {
-			radyDishesToTake.get(j).setDone(true);
-			System.out.println(
-					j + ". " + radyDishesToTake.get(j).getName() + "taken to table " + radyToTake.get(i).getTableNum());
-		}
+					radyDishesToTake.get(j).setDone(true);
+					System.out.println(
+							radyDishesToTake.get(j).getName() + " taken to table " + radyToTake.get(i).getTableNum());
+				}
 			}
-		radyToTake.remove(i);
+			radyToTake.remove(i);
 		}
 	}
 

@@ -19,7 +19,7 @@ public class Cooker extends Workers{
 		for (int i=0; i < dishResavtion.size() ;i++) {
 			if(!dishResavtion.get(i).isDone()) {
 				dishResavtion.get(i).setRady(true);
-				System.out.println("dishe "+i+" is rady for table "+ bon.getTableNum());
+				System.out.println("dishe "+dishResavtion.get(i).getName()+" is rady for table "+ bon.getTableNum());
 			}
 		}
 	}

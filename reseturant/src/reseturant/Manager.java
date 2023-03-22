@@ -9,14 +9,14 @@ public class Manager extends ManagerialPerson{
 	private ArrayList<Table> tables = new ArrayList<Table>();
 	private Menu menu;
 	
-	public Manager(int salary, String name, Menu menu, ArrayList<Workers> workers, ArrayList<Table> tables) {
+	public Manager(int salary, String name, Menu menu, ArrayList<Workers> workers, ArrayList<Table> tables ,Shift shift) {
 		super(salary, name);
 		this.workers =workers;
 		this.menu = menu;
 		this.tables = tables;
 		this.workers.add(new ShiftManager(1111, "workerName"));
 		this.workers.add(new Hostess(1111, "workerName"));
-		
+		this.shift = shift;
 		menu();
 	}
 	public void menu() {
